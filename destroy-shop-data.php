@@ -5,6 +5,46 @@ $prefix = empty($options['p'])
     ? realpath('.')
     : realpath($options['p']);
 
+?>
+<html>
+    <head>
+	<title>Destory All shop data</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>        
+    </head>
+    <style>
+        body {
+            background-color: #f1f4f5;
+            color: #37474f;
+            line-height: 1.4;
+            font-family: 'Open Sans', sans-serif;
+            margin: 70px;
+            padding: 0;
+            }
+        .back_button {
+            background-color: #399bff;
+            color: #fff;
+            margin-top: 15px;
+            font-size: 14px;
+            padding: 7px 20px 7px 20px;
+            border: none;
+            border-radius: 3px;
+            vertical-align: middle;
+            cursor: pointer;
+			text-decoration: none;
+            }
+    </style>
+    <body>
+        <center>
+            <h1>Created by BigMaverick</h1>
+            <p><a href="https://github.com/BigMaverick" target="_blank">https://github.com/BigMaverick</a></p>
+            <br>
+        </center>
+<?php
+
+if(isset($_GET['destroy'])) {
+    
 if (empty($prefix)) {
     die("Bad prefix. Try again.\n");
 }
@@ -63,9 +103,26 @@ $tables = array(
     'url_alias',
 );
 
+echo '<div class="font-family: monospace; ">';
+echo '<h2>Destroying</h2>';
+
 foreach ($tables as $table) {
+    echo '<div>';
     $sql = sprintf('TRUNCATE TABLE %s%s', DB_PREFIX, $table);
     printf('%s %s ', $sql, str_repeat('.', 73 - strlen($sql)));
     $db->query($sql);
     echo "Done!\n";
+    echo '</div>';
 }
+echo '</div>';
+echo '<h2>All done!</h3><a href="javascript:history.back(1)" class="back_button">Back</a>';
+}
+else {
+    echo '<center>';
+    echo '<p>Select link and all shop data <a href="?destroy">WILL BE DESTROYD</a></p>';
+    echo '</center>';
+}
+
+?>
+</body>
+</html>
